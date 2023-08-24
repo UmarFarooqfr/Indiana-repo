@@ -125,6 +125,8 @@ export class AppComponent {
     this.headerFilter.reset();
     this.baseOnFilter.reset();
     this.inputField.reset();
+    this.firstFilter.reset();
+    this.dataSource = new MatTableDataSource(this.mainArray);
   }
 
 }
