@@ -1,0 +1,133 @@
+<div class="main-container">
+  <mat-toolbar style="background-color: #7a1705;border-top: 5px solid #990000;">
+    <div class="border">
+      <img src="../assets/icon.png">
+    </div>
+    <span class="span-design">INDIANA UNIVERSITY</span>
+    <span class="example-spacer"></span>
+  </mat-toolbar>
+  <div class="text-container">
+    <div class="text">
+      <h1>IUScholarWorks</h1>
+
+    </div>
+  </div>
+  <div class="breadcrumb-container">
+    <div class="breadcrumb">
+      <span style="text-decoration: underline;">Home</span><mat-icon>arrow_right_alt</mat-icon>Search
+
+    </div>
+  </div>
+  <div class="breadcrumb-container" style="background-color: transparent;border: none;">
+    <div class="breadcrumb" style="color: black;">
+      <h1 style="font-size: xx-large;">Search</h1>
+
+
+    </div>
+  </div>
+  <div class="search-container">
+    <div class="search">
+      <div class="row-one">
+        <div class="search-input">
+          <span>search:</span>
+          <mat-form-field appearance="outline" style="width: 30%;height: 10%;">
+            <mat-label>Select</mat-label>
+            <mat-select (selectionChange)="changeClient($event.value)">
+              <mat-option *ngFor="let authors of authorsDetails" [value]="authors.id"> {{authors.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="input">
+          <mat-form-field appearance="outline" style="width: 50%;height: 10%;">
+            <mat-label>Input</mat-label>
+            <input matInput (input)="applyFilter($event)">
+          </mat-form-field>
+        </div>
+        <div class="input" style="margin-top: 20px;">
+          <button mat-raised-button color="primary"><mat-icon>search</mat-icon></button>
+        </div>
+        <div class="filter-rows">
+          <div style="display: flex;flex-direction: row;">
+            <mat-form-field appearance="outline" style="width: 20%;height: 10%;;">
+              <mat-label>Select</mat-label>
+              <mat-select [formControl]="headerFilter">
+                <mat-option *ngFor="let value of  tableHeaderValue" [value]="value.name"> {{value.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 20%;height: 10%;margin-left: 10px;">
+              <mat-label>Select</mat-label>
+              <mat-select [formControl]="baseOnFilter">
+                <mat-option *ngFor="let value of filterBaseValue" [value]="value.name"> {{value.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 50%;height: 10%;margin-left: 10px;">
+              <mat-label>Input</mat-label>
+              <input [formControl]="inputField" matInput>
+            </mat-form-field>
+          </div>
+          <div style="margin-top: -10px;">
+            <button mat-raised-button color="primary" (click)="mainApplyFilter()">Apply</button>
+          </div>
+        </div>
+
+      </div>
+      <div class="row-two">
+        <div class="col-one">
+          <div class="first-row"><span style="margin-left: 7px;">Browse</span></div>
+          <div class="second-row"><span>All of IUScholarWorks</span><br>
+            <span class="underline-text">Communities & Collections</span><br>
+            <span class="underline-text">By Issue Date</span><br>
+            <span class="underline-text">Authors</span><br>
+            <span class="underline-text">Titles</span><br>
+            <span class="underline-text">Subjects</span><br>
+            <span class="underline-text">By Submit Date</span>
+          </div>
+
+        </div>
+        <div class="col-two">
+          <div class="first-row"><span style="margin-left: 7px;">My Account</span></div>
+          <div class="second-row">
+            <span class="underline-text">Login</span><br>
+            <span class="underline-text">Register</span>
+            <br>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <!-- <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container> -->
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="start">
+      <th mat-header-cell *matHeaderCellDef> Start </th>
+      <td mat-cell *matCellDef="let element"> {{element.start}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="end">
+      <th mat-header-cell *matHeaderCellDef> End </th>
+      <td mat-cell *matCellDef="let element"> {{element.end}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+
+</div>
