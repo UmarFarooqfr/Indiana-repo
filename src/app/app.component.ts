@@ -2,53 +2,33 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 
+export interface IAuthors{ id: number; name: string }
+export interface ICol{ name: string }
+export interface IFilter{ name: string }
+export interface IRow{ name: string; start: string; end: string }
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
+
 export class AppComponent {
   title = 'serach-filter';
+  firstFilter  = new FormControl('');
+  inputField1 = new FormControl('');
   headerFilter = new FormControl('');
   baseOnFilter = new FormControl('');
   inputField = new FormControl('');
-  authorsDetails: any = [
-    {
-      id: 1,
-      name: 'Indiana University South Bend',
-    },
-    {
-      id: 2,
-      name: 'All of IUScholarWorks',
-    },
+  authorsDetails: IAuthors[] = [
+    { id: 1, name: 'Indiana University South Bend' },
+    { id: 2, name: 'All of IUScholarWorks' },
   ];
-  tableHeaderValue: any = [
-    {
-      name: 'Name',
-    },
-    {
-      name: 'Start',
-    },
-    {
-      name: 'End',
-    },
-  ];
-  filterBaseValue: any = [
-    {
-      name: 'Contains',
-    },
-    {
-      name: 'Equals',
-    },
-    {
-      name: 'Not Contains',
-    },
-    {
-      name: 'Not Equals',
-    },
-  ];
-  fileretedArray: any = [];
-  mainArray: any = [
+  cols: ICol[] = [ { name: 'Name' }, { name: 'Start' }, { name: 'End' }];
+  filterBaseValue: IFilter[] = [ { name: 'Contains' }, { name: 'Equals' }, { name: 'Not Contains' }, { name: 'Not Equals' } ];
+  fileretedArray: IFilter[] = [];
+  mainArray: IRow[] = [
     { name: 'IUScholar', start: '1987', end: '2003' },
     { name: 'IUScholar', start: '1986', end: '2004' },
     { name: 'IUScholar', start: '1968', end: '2006' },
@@ -63,14 +43,14 @@ export class AppComponent {
   // fakeArray: any = this.mainArray;
   displayedColumns: string[] = ['name', 'start', 'end'];
   dataSource: any = new MatTableDataSource(this.mainArray);
-originalArray :string=''
+  originalArray: string = ''
   constructor() {
     this.dataSource = new MatTableDataSource(this.mainArray)
-    this.originalArray=JSON.stringify(this.mainArray)
+    this.originalArray = JSON.stringify(this.mainArray)
   }
   changeClient(value: number) {
     console.log('value: ', value);
-    console.log("this.mainArray",this.mainArray)
+    console.log("this.mainArray", this.mainArray)
     if (value === 1) {
       this.fileretedArray = [];
       this.mainArray.forEach((data: any) => {
@@ -79,9 +59,9 @@ originalArray :string=''
         }
       });
 
-      this.dataSource =new MatTableDataSource(this.fileretedArray) ;
+      this.dataSource = new MatTableDataSource(this.fileretedArray);
       console.log('this.dataSource: ', this.dataSource);
-    } else {
+    } else if (value === 2) {
       this.fileretedArray = [];
       this.mainArray.forEach((data: any) => {
         if (data.name === 'IUScholar') {
@@ -89,29 +69,27 @@ originalArray :string=''
         }
       });
 
-      this.dataSource =new MatTableDataSource(this.fileretedArray) ;
+      this.dataSource = new MatTableDataSource(this.fileretedArray);
       console.log('this.dataSource: ', this.dataSource);
+    } else {
+      this.dataSource = new MatTableDataSource(this.mainArray);
     }
   }
-  applyFilter(event: Event) {
-    console.log('event: ', event);
-    const filterValue = (event.target as HTMLInputElement).value;
-    console.log('filterValue: ', filterValue);
+  applyFilter() {
+    const filterValue = this.inputField1.value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-    console.log('this.dataSource: ', this.dataSource);
   }
   mainApplyFilter() {
-    if(!this.fileretedArray.length){
-
+    if (!this.fileretedArray.length) {
       this.dataSource = [...JSON.parse(this.originalArray)]
     }
 
-      this.checkContains();
+    this.checkContains();
   }
   checkContains() {
     const mainData = this.fileretedArray.length ? this.fileretedArray : [...JSON.parse(this.originalArray)]
     if (this.baseOnFilter.value === 'Contains') {
-    console.log("filetqghfvhv",this.fileretedArray)
+      console.log("filetqghfvhv", this.fileretedArray)
       this.dataSource = mainData?.filter((data: any) => {
         return data[`${this.headerFilter.value?.toLowerCase()}`]
           ?.toLowerCase()
@@ -141,6 +119,12 @@ originalArray :string=''
       });
       console.log('Not Equals ', this.baseOnFilter.value);
     }
+  }
+
+  reset(){
+    this.headerFilter.reset();
+    this.baseOnFilter.reset();
+    this.inputField.reset();
   }
 
 }

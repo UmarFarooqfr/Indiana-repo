@@ -26,50 +26,52 @@
     <div class="search">
       <div class="row-one">
         <div class="search-input">
-          <span>search:</span>
-          <mat-form-field appearance="outline" style="width: 30%;height: 10%;">
+          <span>Search:</span>
+          <mat-form-field appearance="outline" style="width: 30%;height: 10%;margin-top: 10px;">
             <mat-label>Select</mat-label>
-            <mat-select (selectionChange)="changeClient($event.value)">
+            <mat-select [formControl]="firstFilter" (selectionChange)="changeClient($event.value)">
+              <mat-option> None </mat-option>
               <mat-option *ngFor="let authors of authorsDetails" [value]="authors.id"> {{authors.name}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
+        <div style="display: flex;flex-direction: row;margin-top: 10px;">
         <div class="input">
-          <mat-form-field appearance="outline" style="width: 50%;height: 10%;">
-            <mat-label>Input</mat-label>
-            <input matInput (input)="applyFilter($event)">
+          <mat-form-field appearance="outline" style="width: 100%;height: 10%;">
+            <input matInput [formControl]="inputField1" placeholder="Text to Search">
           </mat-form-field>
         </div>
         <div class="input" style="margin-top: 20px;">
-          <button mat-raised-button color="primary"><mat-icon>search</mat-icon></button>
+          <button mat-raised-button color="primary" (click)="applyFilter()"><mat-icon>search</mat-icon></button>
         </div>
+      </div>
         <div class="filter-rows">
           <div style="display: flex;flex-direction: row;">
             <mat-form-field appearance="outline" style="width: 20%;height: 10%;;">
-              <mat-label>Select</mat-label>
+              <mat-label>Select Column</mat-label>
               <mat-select [formControl]="headerFilter">
-                <mat-option *ngFor="let value of  tableHeaderValue" [value]="value.name"> {{value.name}}</mat-option>
+                <mat-option *ngFor="let value of cols" [value]="value.name"> {{value.name}}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field appearance="outline" style="width: 20%;height: 10%;margin-left: 10px;">
-              <mat-label>Select</mat-label>
+              <mat-label>Select Filter</mat-label>
               <mat-select [formControl]="baseOnFilter">
                 <mat-option *ngFor="let value of filterBaseValue" [value]="value.name"> {{value.name}}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field appearance="outline" style="width: 50%;height: 10%;margin-left: 10px;">
-              <mat-label>Input</mat-label>
-              <input [formControl]="inputField" matInput>
+              <input [formControl]="inputField" matInput placeholder="Text to Search">
             </mat-form-field>
           </div>
           <div style="margin-top: -15px;">
             <button mat-raised-button color="primary" (click)="mainApplyFilter()">Apply</button>
+            <button mat-raised-button color="primary" (click)="reset()" style="margin-left: 10px;">Reset</button>
           </div>
         </div>
 
       </div>
       <div class="row-two">
-        <div class="col-one">
+        <!-- <div class="col-one">
           <div class="first-row"><span style="margin-left: 7px;">Browse</span></div>
           <div class="second-row"><span>All of IUScholarWorks</span><br>
             <span class="underline-text">Communities & Collections</span><br>
@@ -89,7 +91,7 @@
             <br>
 
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -125,6 +127,4 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-
-
 </div>

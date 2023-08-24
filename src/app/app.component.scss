@@ -15,7 +15,7 @@
       .row-one {
         width: 75%;
         height: 290px;
-        background-color: lightgray;
+        background-color: #E4F2FD;
         border-radius: 10px;
         .search-input {
           width: 100%;
@@ -25,10 +25,10 @@
           height: 20%;
           span {
             align-items: center;
-
             display: flex;
             margin-right: 10px;
             margin-left: 10px;
+            margin-top: 18px;
           }
         }
         .input {
@@ -36,61 +36,8 @@
           width: 100%;
           margin-top: 10px;
           margin-left: 10px;
-        }
-      }
-      .row-two {
-        width: 23%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        .col-one {
-          height: 80%;
-          width: 100%;
-          border: 1px solid black;
-          display: flex;
-          flex-direction: column;
-          .first-row {
-            background-color: #990000;
-            height: 15%;
-            display: flex;
-            align-items: center;
-            color: white;
-          }
-          .second-row {
-            height: 70%;
-            width: 100%;
-            span {
-              margin-left: 7px;
-            }
-            .underline-text {
-              text-decoration: underline;
-              margin-left: 15px;
-            }
-          }
-        }
-        .col-two {
-          height: 30%;
-          width: 100%;
-          margin-top: 20px;
-          display: flex;
-          flex-direction: column;
-          border: 1px solid black;
-          .first-row {
-            background-color: #990000;
-            height: 40%;
-            display: flex;
-            align-items: center;
-            color: white;
-          }
-          .second-row {
-            height: 70%;
-            width: 100%;
-            span {
-              margin-left: 7px;
-            }
-            .underline-text {
-              text-decoration: underline;
-            }
+          .mat-input-element{
+            font-size: 16px;
           }
         }
       }
@@ -164,11 +111,4 @@
 }
 table {
   width: 100%;
-}
-
-.test{
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: center;
 }
