@@ -13,14 +13,15 @@
       flex-direction: row;
       justify-content: space-between;
       .row-one {
-        width: 60%;
-        height: 100%;
+        width: 75%;
+        height: 290px;
         background-color: lightgray;
         border-radius: 10px;
         .search-input {
           width: 100%;
           display: flex;
           flex-direction: row;
+          margin-top: 10px;
           height: 20%;
           span {
             align-items: center;
@@ -163,4 +164,11 @@
 }
 table {
   width: 100%;
+}
+
+.test{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
 }
